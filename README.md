@@ -10,28 +10,13 @@
 
 ## 长什么样
 
-![Claude Crush 实际运行截图](docs/screenshot.png)
+![Claude Crush 界面示意](docs/overview.svg)
 
-*实际截图(Windows Terminal,全屏模式)。左边是对话区:✓ 标记的工具调用行,Edit 行尾是增删行数。右边是侧边栏:会话标题、模型、上下文用量、额度、改动过的文件、工具调用统计。底部是输入框上方的状态行:模型、上下文用量、花费、当前目录。*
+*示意图,按 mod 实际的配色和布局绘制。*
 
-截图里没出现的几种状态,文字示意如下。真实界面里的图标和"Thinking"是紫色到粉色的渐变:
-
-```
-▌ 帮我修一下构建脚本
-
-  好的,我先看看 package.json。
-
-✓ View  package.json
-✓ Edit  scripts/build.js                                   +3 -1
-⣾ Bash  npm run build
-  │ > my-app@1.0.0 build
-  │ > node scripts/build.js
-  ╰ … 12 more lines (ctrl+o to expand)
-
-⣽ Thinking…  12s
-
-◇ Opus 5.5  1m 4s
-```
+- **左边是对话区。** 你的消息左边有一道紫色竖条。Claude 调用的每个工具占一行:✓ 是完成,旋转的点是还在运行;Edit 行的末尾是增删了几行。命令的输出放在带竖线的框里,太长的部分会折叠起来。等待时那个 "Thinking" 上有一道紫粉色的光在流动。每轮结束会有一行 `◇ 模型 耗时`。
+- **右边是侧边栏。** 包括会话标题、目录和 git 分支,模型和上下文用量,花费,5 小时和 7 天的额度,改动过的文件,To-Do 进度,以及各个工具调用了几次。
+- **底部是状态行和输入框。** 输入框里的 `/命令` 和 `@文件` 会被上色。
 
 ---
 
@@ -159,6 +144,10 @@ claude --plugin-dir "D:\tools\claude-crush\crush-style"
 - **开关会被记住。** 今天关掉,明天打开 Claude Code 也还是关着的,直到你再输入 `/crush on`。
 - 关掉以后,界面和原版 Claude Code 完全一样。
 
+![/crush on 与 /crush off 对比](docs/switch.svg)
+
+*同一段对话:左边是关掉时(Claude Code 原样),右边是打开时。示意图。*
+
 ### 侧边栏怎么才会出现
 
 侧边栏要在 Claude Code 的**全屏模式**下才能停靠在对话旁边。在 `settings.json` 里加上 `"tui": "fullscreen"` 就能开启全屏模式:
@@ -172,6 +161,8 @@ claude --plugin-dir "D:\tools\claude-crush\crush-style"
 }
 ```
 
+![侧边栏在哪里出现](docs/layouts.svg)
+
 - 终端窗口够宽(**至少 144 列**)时,侧边栏会自动出现。
 - 窗口窄一些(**至少 110 列**)时,输入 `/sidebar` 手动打开。
 - 不在全屏模式时,`/sidebar` 会在输入框上方展开一块,而不是停在旁边。
@@ -179,7 +170,7 @@ claude --plugin-dir "D:\tools\claude-crush\crush-style"
 
 ### 输入框上方的那一行
 
-没有侧边栏时,输入框上方会显示一行简要信息:模型、上下文用了多少、花了多少钱、To-Do 进度、git 分支和当前目录。
+输入框上方会显示一行简要信息:模型、上下文用了多少、花了多少钱、To-Do 进度、git 分支和当前目录。它和侧边栏会同时显示,觉得重复的话,可以在[可选设置](#可选设置)里把 `band` 关掉。
 
 ### 输入时的颜色
 

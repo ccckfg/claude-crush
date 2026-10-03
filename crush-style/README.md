@@ -19,7 +19,7 @@
 | `╱╱╱╱` 斜线分隔 | 侧边栏标题和状态带两端 |
 | 圆角边框的命令输出 | `CommandOutput` |
 | 信息栏 | `Pane`:会话标题、目录、分支、模型、上下文进度条、token、花费、5h/7d 额度、改动文件(+/-)、To-Do、工具调用统计 |
-| 输入框上方的状态行 | `AbovePrompt`:模型、上下文、花费、To-Do 进度、分支、目录。有侧边栏停靠时让位 |
+| 输入框上方的状态行 | `AbovePrompt`:模型、上下文、花费、To-Do 进度、分支、目录 |
 | 输入时的高亮 | `prompt.edit`:开头的 `/命令`、`!`、`@文件` 上色 |
 
 所有绘制都只在 `terminal` 表面生效,桌面端、VS Code、手机端一律交还引擎。
@@ -80,12 +80,20 @@ npx -p typescript tsc -p crush-style
 
 在 Windows 的 Git Bash 里用 `claude -p "/crush on"` 这类命令做试验时要小心:Git Bash 会把以 `/` 开头的参数改写成 Windows 路径。请改用 PowerShell。
 
+## 已知问题
+
+- 状态行本该在侧边栏停靠时让位:代码用 `e.viewport.columns > e.props.bodyColumns` 判断是否停靠。但真实终端里两者同时显示,说明这个条件在真实终端里不成立,测试里是按假设的数值通过的。修好之前,README 按实际表现写。
+
 ## 没在真实终端里验证的
 
 - 用户消息的竖条高度和换行是否对齐(中文、长行、窄窗口)
 - 侧边栏在全屏布局下的宽度和滚动
 - 关闭/打开总开关时,历史消息是否立刻重画
 - Spinner 的渐变在不同终端里的真彩色效果
+
+## README 里的插图
+
+`docs/*.svg` 由 `python docs/draw.py` 生成,颜色和布局照搬 mod 的代码。界面改了就改脚本、重新生成,不要手改 SVG。
 
 ## 改配色
 
