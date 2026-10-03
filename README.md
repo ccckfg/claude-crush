@@ -10,9 +10,11 @@
 
 ## 长什么样
 
-下面是示意图,真实界面里的竖条、图标和"Thinking"是紫色到粉色的渐变。
+![Claude Crush 实际运行截图](docs/screenshot.png)
 
-**对话区**
+*实际截图(Windows Terminal,全屏模式)。左边是对话区:✓ 标记的工具调用行,Edit 行尾是增删行数。右边是侧边栏:会话标题、模型、上下文用量、额度、改动过的文件、工具调用统计。底部是输入框上方的状态行:模型、上下文用量、花费、当前目录。*
+
+截图里没出现的几种状态,文字示意如下。真实界面里的图标和"Thinking"是紫色到粉色的渐变:
 
 ```
 ▌ 帮我修一下构建脚本
@@ -29,27 +31,6 @@
 ⣽ Thinking…  12s
 
 ◇ Opus 5.5  1m 4s
-```
-
-**侧边栏**(全屏模式下停靠在对话旁边)
-
-```
-CLAUDE CODE ╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱
-帮我修一下构建脚本
-~/projects/my-app
-⎇ main
-
-◇ Opus 5.5
-  ███████░░░░░░░░░░░░░ 34%
-  68.0K / 200.0K · $0.42
-
-Modified Files ╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱
-+3 -1 scripts/build.js
-
-To-Do 1/3 ╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱
-✓ 找到报错原因
-● 修复构建脚本
-○ 跑一遍测试
 ```
 
 ---
@@ -70,9 +51,35 @@ To-Do 1/3 ╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱�
 
 ---
 
-## 安装:三步
+## 安装
 
-### 第 1 步:下载
+两种方法任选一种。**新手推荐方法一**:你只需要复制粘贴一段话,剩下的交给 Claude。
+
+### 方法一:让 Claude Code 自己帮你装(推荐)
+
+1. 打开终端,输入 `claude` 启动 Claude Code。
+2. 把下面这一整段复制进去,按回车发送:
+
+   ```
+   请帮我安装 Claude Code 的 crush-style mod,按顺序做:
+   1. 把 https://github.com/ccckfg/claude-crush 克隆到我的用户主目录下的 claude-crush 文件夹(已经存在的话就 git pull 更新)。
+   2. 在 ~/.claude/settings.json 的 env 里设置 CLAUDE_CODE_PLUGIN_DIRS,值是克隆下来的 crush-style 文件夹的绝对路径。文件不存在就新建;保留文件里原有的所有设置;如果 CLAUDE_CODE_PLUGIN_DIRS 已经有值,用系统的路径分隔符(Windows 用分号,macOS 和 Linux 用冒号)把新路径加在后面。改完检查 JSON 格式是否正确。
+   3. 运行 claude plugin validate 加上 crush-style 文件夹的路径,确认结果是 Validation passed。
+   4. 最后告诉我装在了哪里,并提醒我重启 Claude Code。
+   ```
+
+3. Claude 会一步步运行命令、修改设置文件。过程中它会请你确认权限,看清楚后同意即可。
+4. 等它说装好了,**退出 Claude Code 再重新打开**,输入 `/crush on`。看到 `Crush style is already on.` 就大功告成 🎉
+
+> 💡 **想要侧边栏停靠在对话旁边?** 装好后再对 Claude 说一句:
+> 「把 ~/.claude/settings.json 里的 tui 设成 fullscreen」
+> 原因见下文[侧边栏怎么才会出现](#侧边栏怎么才会出现)。
+
+> 第一步克隆需要电脑上装了 git。没有的话 Claude 会告诉你,这时可以改用下面的方法二,直接下载 ZIP。
+
+### 方法二:手动安装(三步)
+
+#### 第 1 步:下载
 
 任选一种:
 
@@ -89,7 +96,7 @@ To-Do 1/3 ╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱�
 
 > ⚠️ 要的是里面那层 `crush-style` 文件夹,不是外面的 `claude-crush`。打开它,应该能看到 `hooks`、`types` 这些文件夹。
 
-### 第 2 步:让 Claude Code 加载它
+#### 第 2 步:让 Claude Code 加载它
 
 **先试一下(只对这一次启动有效):**
 
@@ -126,7 +133,7 @@ claude --plugin-dir "D:\tools\claude-crush\crush-style"
 > 「帮我在 ~/.claude/settings.json 的 env 里加上 CLAUDE_CODE_PLUGIN_DIRS,值是 D:\tools\claude-crush\crush-style」
 > 它会帮你改好并检查格式。
 
-### 第 3 步:重启并确认
+#### 第 3 步:重启并确认
 
 退出 Claude Code,再输入 `claude` 重新打开。然后输入:
 
