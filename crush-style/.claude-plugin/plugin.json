@@ -1,0 +1,37 @@
+{
+  "name": "crush-style",
+  "version": "0.1.0",
+  "description": "Crush CLI look for Claude Code: Charm palette, bordered tool rows, gradient spinner, session sidebar",
+  "author": { "name": "ccckfg", "url": "https://github.com/ccckfg" },
+  "homepage": "https://github.com/ccckfg/claude-crush",
+  "license": "MIT",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "sidebar": {
+      "type": "boolean",
+      "title": "Open the sidebar on start",
+      "description": "Open the Crush-style session sidebar by itself in the fullscreen layout. /sidebar toggles it either way.",
+      "default": true
+    },
+    "band": {
+      "type": "boolean",
+      "title": "Status band above the prompt",
+      "description": "Show a one-line model, context and cost band above the prompt while no sidebar is docked.",
+      "default": true
+    },
+    "toolGroups": {
+      "type": "string",
+      "title": "Read and search runs",
+      "description": "expand draws every read, search and listing as its own row, as Crush does; fold keeps Claude Code's one-line count.",
+      "default": "expand",
+      "options": ["expand", "fold"]
+    },
+    "spinnerWords": {
+      "type": "string",
+      "title": "Spinner wording",
+      "description": "crush says Thinking, Generating and so on; claude keeps Claude Code's own verbs.",
+      "default": "crush",
+      "options": ["crush", "claude"]
+    }
+  }
+}
