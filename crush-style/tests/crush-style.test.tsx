@@ -474,6 +474,9 @@ describe('sidebar', () => {
     expect(await ui.find({ type: 'Text', text: '+2' })).toBeDefined()
     expect(await ui.find({ type: 'Text', text: 'Sonnet 5.5' })).toBeDefined()
     expect(await ui.find({ type: 'Text', text: /34%/ })).toBeDefined()
+    // Tokens and cost each get a line, so a narrow sidebar never cuts the cost.
+    expect((await ui.find({ type: 'Text', text: '68.0K / 200.0K' }))?.text).toBe('68.0K / 200.0K')
+    expect((await ui.find({ type: 'Text', text: '$0.42' }))?.text).toBe('$0.42')
     expect(await ui.find({ type: 'Text', text: /To-Do 1\/3/ })).toBeDefined()
     expect(await ui.find({ type: 'Text', text: 'Testing it' })).toBeDefined()
     expect(await ui.find({ type: 'Text', text: 'Edit' })).toBeDefined()

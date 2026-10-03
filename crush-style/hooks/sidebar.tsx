@@ -68,16 +68,17 @@ export const sidebar = (t: T, f: Facts, columns: number) => {
           <Text color={C.muted}>{` ${Math.round(u.percent)}%`}</Text>
         </Box>
       )}
-      {u === null ? null : (
+      {u === null || u.tokens === null ? null : (
         <Box paddingLeft={2}>
           <Text color={C.muted} wrap="truncate-end">
-            {[
-              u.tokens === null ? '' : `${fmtTokens(u.tokens)} / ${fmtTokens(u.window)}`,
-              u.usd === null ? '' : fmtUsd(u.usd),
-            ]
-              .filter(part => part !== '')
-              .join(' · ') || ' '}
+            {`${fmtTokens(u.tokens)} / ${fmtTokens(u.window)}`}
           </Text>
+        </Box>
+      )}
+      {/* The cost on a line of its own: beside the tokens a narrow sidebar cut it to `$1…`. */}
+      {u === null || u.usd === null ? null : (
+        <Box paddingLeft={2}>
+          <Text color={C.muted}>{fmtUsd(u.usd)}</Text>
         </Box>
       )}
       {u === null
